@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>کوئیز لغت 💖</title>
+<title> کوئیز لغت  💖</title>
 <style>
 body {
     margin: 0;
@@ -24,7 +24,6 @@ body {
     border-radius: 18px;
     padding: 30px;
     box-shadow: 0 10px 30px #ff99cc80;
-    animation: fadeIn 1s;
 }
 h2 {
     text-align: center;
@@ -39,7 +38,6 @@ h2 {
     border-radius: 15px;
     box-shadow: 0 5px 15px #ffb3d980;
     transition: transform .2s, box-shadow .2s;
-    animation: pop .4s ease-out;
 }
 .question-box:hover {
     transform: translateY(-4px);
@@ -56,24 +54,6 @@ h2 {
 .option:hover {
     background: #ffcced;
 }
-button {
-    width: 100%;
-    font-size: 18px;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
-    background: linear-gradient(135deg, #ff4da6, #ff1a8c);
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px #ff66b380;
-    transition: transform .2s, background .2s;
-}
-button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(135deg, #ff1a8c, #e60073);
-}
 .result-box {
     text-align: center;
     font-size: 20px;
@@ -82,7 +62,6 @@ button:hover {
     background: #fff0fa;
     box-shadow: 0 5px 20px #ffa3d880;
     margin-top: 25px;
-    animation: fadeInUp .7s;
 }
 .wrong-detail {
     background: #ffe6ee;
@@ -91,172 +70,391 @@ button:hover {
     border-radius: 10px;
     border-right: 4px solid #ff4da6;
 }
-.timer {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: #d61a75;
-    margin-bottom: 15px;
+#timer {
+    text-align:center;
+    font-size:18px;
+    color:#d61a75;
+    margin-bottom:15px;
 }
-@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-@keyframes fadeInUp { from {transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-@keyframes pop { 0% { transform: scale(0.9); } 60% { transform: scale(1.03); } 100% { transform: scale(1); } }
 </style>
 </head>
 <body>
 <div class="container">
-<h2>✨ کوئیز لغتی ✨</h2>
-<div id="timer" class="timer"></div>
+<h2>✨ کوئیز لغت  ✨</h2>
+<div id="timer">⏱️ زمان: <span id="time">10</span> ثانیه</div>
 <div id="quiz"></div>
-<div id="result"></div>
 </div>
 
 <script>
-// ---------------- لغات ----------------
-const words = [
-{word:"New", meaning:"جدید"},
-{word:"Before", meaning:"قبلا"},
-{word:"School", meaning:"مدرسه"},
-{word:"Traffic", meaning:"ترافیک"},
-{word:"Money", meaning:"پول"},
-{word:"Sibling", meaning:"خواهر و برادر"},
-{word:"Sister", meaning:"خواهر"},
-{word:"Doctor", meaning:"دکتر"},
-{word:"Shy", meaning:"خجالتی"},
-{word:"Friendly", meaning:"صمیمی"},
-{word:"Thanks", meaning:"تشکر کردن"},
-{word:"Nice", meaning:"خوب"},
-{word:"Meet", meaning:"ملاقات کردن"},
-{word:"And", meaning:"و"},
-{word:"But", meaning:"اما"},
-{word:"Too", meaning:"همچنین"},
-{word:"By the way", meaning:"به هر حال"},
-{word:"Dentist", meaning:"دندونپزشک"},
-{word:"Hard", meaning:"سخت"},
-{word:"Work", meaning:"کار کردن"},
-{word:"With", meaning:"با. همراه"},
-{word:"Student", meaning:"دانش آموزا"},
-{word:"Very", meaning:"خیلی"},
-{word:"Easy", meaning:"آسان"},
-{word:"So", meaning:"خیلی"},
-{word:"Funny", meaning:"بامزه"},
-{word:"Smart", meaning:"باهوش"},
-{word:"Interesting", meaning:"جالب"},
-{word:"Good luck", meaning:"موفق باشید"},
-{word:"What", meaning:"چی"},
-{word:"Why", meaning:"چرا"},
-{word:"Where", meaning:"کجا"},
-{word:"Who", meaning:"چه کسی"},
-{word:"Whose", meaning:"مال کی"},
-{word:"How", meaning:"چطور"},
-{word:"Great", meaning:"عالی"},
-{word:"That", meaning:"آن"},
-{word:"Game", meaning:"بازی"},
-{word:"Team", meaning:"تیم"},
-{word:"Soccer", meaning:"فوتبال"},
-{word:"Afternoon", meaning:"بعداظهر"},
-{word:"Volleyball", meaning:"والیبال"},
-{word:"Player", meaning:"بازیکن"},
-{word:"Handsome", meaning:"خوش تیپ، جذاب"},
-{word:"Old", meaning:"قدیمی"},
-{word:"Kind", meaning:"مهربون"},
-{word:"Short", meaning:"کوتاه"},
-{word:"About", meaning:"درباره. حدودا"},
-{word:"Centimeter", meaning:"سانتی متر"},
-{word:"Late", meaning:"دیر"},
-{word:"For", meaning:"برای"},
-{word:"Class", meaning:"کلاس"},
-{word:"One hundred", meaning:"100"},
-{word:"Water", meaning:"آب"},
-{word:"Milk", meaning:"شیر"},
-// ... ادامه همه کلماتت همینجا اضافه می‌شن
+// لغات نمونه
+const words = [  
+{word:"New", meaning:"جدید"},  
+{word:"Before", meaning:"قبلا"},  
+{word:"School", meaning:"مدرسه"},  
+{word:"Traffic", meaning:"ترافیک"},  
+{word:"Money", meaning:"پول"},  
+{word:"Sibling", meaning:"خواهر و برادر"},  
+{word:"Sister", meaning:"خواهر"},  
+{word:"Doctor", meaning:"دکتر"},  
+{word:"Shy", meaning:"خجالتی"},  
+{word:"Friendly", meaning:"صمیمی"},  
+{word:"Thanks", meaning:"تشکر کردن"},  
+{word:"Nice", meaning:"خوب"},  
+{word:"Meet", meaning:"ملاقات کردن"},  
+{word:"And", meaning:"و"},  
+{word:"But", meaning:"اما"},  
+{word:"Too", meaning:"همچنین"},  
+{word:"By the way", meaning:"به هر حال"},  
+{word:"Dentist", meaning:"دندونپزشک"},  
+{word:"Hard", meaning:"سخت"},  
+{word:"Work", meaning:"کار کردن"},  
+{word:"With", meaning:"با. همراه"},  
+{word:"Student", meaning:"دانش آموزا"},  
+{word:"Very", meaning:"خیلی"},  
+{word:"Easy", meaning:"آسان"},  
+{word:"So", meaning:"خیلی"},  
+{word:"Funny", meaning:"بامزه"},  
+{word:"Smart", meaning:"باهوش"},  
+{word:"Interesting", meaning:"جالب"},  
+{word:"Good luck", meaning:"موفق باشید"},  
+{word:"What", meaning:"چی"},  
+{word:"Why", meaning:"چرا"},  
+{word:"Where", meaning:"کجا"},  
+{word:"Who", meaning:"چه کسی"},  
+{word:"Whose", meaning:"مال کی"},  
+{word:"How", meaning:"چطور"},  
+{word:"Great", meaning:"عالی"},  
+{word:"That", meaning:"آن"},  
+{word:"Game", meaning:"بازی"},  
+{word:"Team", meaning:"تیم"},  
+{word:"Soccer", meaning:"فوتبال"},  
+{word:"Afternoon", meaning:"بعداظهر"},  
+{word:"Volleyball", meaning:"والیبال"},  
+{word:"Player", meaning:"بازیکن"},  
+{word:"Handsome", meaning:"خوش تیپ، جذاب"},  
+{word:"Old", meaning:"قدیمی"},  
+{word:"Kind", meaning:"مهربون"},  
+{word:"Short", meaning:"کوتاه"},  
+{word:"About", meaning:"درباره. حدودا"},  
+{word:"Centimeter", meaning:"سانتی متر"},  
+{word:"Late", meaning:"دیر"},  
+{word:"For", meaning:"برای"},  
+{word:"Class", meaning:"کلاس"},  
+{word:"One hundred", meaning:"100"},  
+{word:"Water", meaning:"آب"},  
+{word:"Milk", meaning:"شیر"},  
+{word:"Chair", meaning:"صندلی"},  
+{word:"Desk", meaning:"میز"},  
+{word:"Box", meaning:"جعبه"},  
+{word:"Bus", meaning:"اتوبوس"},  
+{word:"Person", meaning:"نفر،شخص"},  
+{word:"Child", meaning:"بچه"},  
+{word:"Man", meaning:"مرد"},  
+{word:"Beautiful", meaning:"خوشگل"},  
+{word:"Ugly", meaning:"زشت"},  
+{word:"Big", meaning:"بزرگ"},  
+{word:"Small", meaning:"کوچک"},  
+{word:"Girl", meaning:"دختر"},  
+{word:"House", meaning:"خانه"},  
+{word:"Room", meaning:"اتاق"},  
+{word:"This", meaning:"اینجا"},  
+{word:"Bag", meaning:"کیف"},  
+{word:"Excuse me", meaning:"ببخشید"},  
+{word:"Well", meaning:"خب"},  
+{word:"Here", meaning:"اینجا"},  
+{word:"Glass", meaning:"لیوان"},  
+{word:"Pencil", meaning:"مداد"},  
+{word:"Table", meaning:"میز"},  
+{word:"Tv", meaning:"تلوزیون"},  
+{word:"How much", meaning:"چقدر؟"},  
+{word:"How many", meaning:"چندتا؟"},  
+{word:"In", meaning:"داخل"},  
+{word:"On", meaning:"روی"},  
+{word:"In front of", meaning:"جلو"},  
+{word:"Under", meaning:"زیر"},  
+{word:"Behind", meaning:"پشت"},  
+{word:"Next to", meaning:"کنار"},  
+{word:"Pool", meaning:"استخر"},  
+{word:"Swimming", meaning:"شنا کردن"},  
+{word:"Thousand", meaning:"هزار"},  
+{word:"Nothing", meaning:"هیچی"},  
+{word:"Any", meaning:"هیچی"},  
+{word:"A few", meaning:"تعداد کمی"},  
+{word:"Some", meaning:"مقداری ،تعدادی"},  
+{word:"Much", meaning:"زیاد"},  
+{word:"Many", meaning:"زیاد"},  
+{word:"A lot of", meaning:"زیاد"},  
+{word:"Car", meaning:"ماشین"},  
+{word:"Juice", meaning:"آبمیوه"},  
+{word:"Wall", meaning:"دیوار"},  
+{word:"Bedroom", meaning:"اتاق خواب"},  
+{word:"Carpet", meaning:"فرش"},  
+{word:"Rug", meaning:"قالیچه"},  
+{word:"Thing", meaning:"چیز"},  
+{word:"Happy", meaning:"خوشحال"},  
+{word:"Angry", meaning:"عصبانی"},  
+{word:"Sad", meaning:"غمگین"},  
+{word:"Hungry", meaning:"گشنه"},  
+{word:"Thirsty", meaning:"تشنه"},  
+{word:"Nervous", meaning:"عصبی"},  
+{word:"Confused", meaning:"گیج ،سردرگم"},  
+{word:"Exam", meaning:"امتحان"},  
+{word:"Rainy", meaning:"بارانی"},  
+{word:"Snowy", meaning:"برفی"},  
+{word:"Mate", meaning:"همراه"},  
+{word:"Think", meaning:"فکر کردن"},  
+{word:"Exactly", meaning:"دقیقا"},  
+{word:"Morning", meaning:"صبح"},  
+{word:"Kitchen", meaning:"آشپزخانه"},  
+{word:"Living room", meaning:"پذیرایی"},  
+{word:"Bathroom", meaning:"حمام"},  
+{word:"Yard", meaning:"حیاط"},  
+{word:"Locker room", meaning:"رختکن"},  
+{word:"Bed", meaning:"تخت"},  
+{word:"Couch", meaning:"مبل"},  
+{word:"Bread", meaning:"نان"},  
+{word:"Soap", meaning:"صابون"},  
+{word:"Can", meaning:"توانستن"},  
+{word:"Read", meaning:"خواندن"},  
+{word:"Write", meaning:"نوشتن"},  
+{word:"Sing", meaning:"آواز خواندن"},  
+{word:"Dance", meaning:"رقصیدن"},  
+{word:"Run", meaning:"دویدن"},  
+{word:"Speak", meaning:"صحبت کردن"},  
+{word:"Talk", meaning:"حرف زدن"},  
+{word:"Call", meaning:"زنگ زدن"},  
+{word:"Swim", meaning:"شنا"},  
+{word:"Eat", meaning:"خوردن"},  
+{word:"Drink", meaning:"نوشیدن"},  
+{word:"There", meaning:"اونجا"},  
+{word:"Correct", meaning:"درست"},  
+{word:"Answer", meaning:"جواب دادن"},  
+{word:"Shall", meaning:"باید"},  
+{word:"Go", meaning:"رفتن"},  
+{word:"Something", meaning:"چیزی"},  
+{word:"Ask", meaning:"پرسیدن. درخواست کردن"},  
+{word:"Sit", meaning:"نشستن"},  
+{word:"Visit", meaning:"دیدن ملاقات کردن"},  
+{word:"Buy", meaning:"خریدن"},  
+{word:"Do", meaning:"انجام دادن"},  
+{word:"See", meaning:"دیدن"},  
+{word:"Tonight", meaning:"امشب"},  
+{word:"Movie", meaning:"فیلم سینمایی"},  
+{word:"Cinema", meaning:"سینما"},  
+{word:"Comedy", meaning:"کمدی"},  
+{word:"Family", meaning:"خانواده"},  
+{word:"Dinner", meaning:"شام"},  
+{word:"Should", meaning:"باید (پیشنهاد و توصیه)"},  
+{word:"Mr", meaning:"آقای"},  
+{word:"Ms", meaning:"خانم"},  
+{word:"Tell", meaning:"گفتن"},  
+{word:"Sell", meaning:"فروختن"},  
+{word:"Study", meaning:"درس خواندن، مطالعه کردن"},  
+{word:"Spend", meaning:"خرج کردن ،صرف کردن"},  
+{word:"Watch", meaning:"تماشا کردن"},  
+{word:"Change", meaning:"عوض کردن، تغییر دادن"},  
+{word:"Come", meaning:"آمدن"},  
+{word:"Start", meaning:"شروع کردن"},  
+{word:"Tower", meaning:"برج"},  
+{word:"Office", meaning:"دفتر (محل کار)"},  
+{word:"Lunch", meaning:"ناهار"},  
+{word:"Night", meaning:"شب"},  
+{word:"May", meaning:"ممکن بودن"},  
+{word:"Get", meaning:"رسیدن، شدن"},  
+{word:"Have", meaning:"داشتن"},  
+{word:"Bring", meaning:"آوردن"},  
+{word:"Lose", meaning:"گم کردن ،باختن"},  
+{word:"Fall down", meaning:"افتادن"},  
+{word:"Sorry", meaning:"متاسف، ناراحت"},  
+{word:"Here you are", meaning:"بفرمایید"},  
+{word:"Sure", meaning:"حتما ،مطمئن"},  
+{word:"Fine", meaning:"خوب"},  
+{word:"Now", meaning:"الان ،حالا"},  
+{word:"Deep", meaning:"عمیق"},  
+{word:"Out", meaning:"بیرون"},  
+{word:"Shopping", meaning:"خرید"},  
+{word:"Food", meaning:"غذا"},  
+{word:"Must", meaning:"باید (اجبار)"},  
+{word:"Stay", meaning:"ماندن"},  
+{word:"Complete", meaning:"کامل کردن"},  
+{word:"Match", meaning:"مطابقت دادن ،جفت کردن"},  
+{word:"Clean", meaning:"تمیز کردن"},  
+{word:"Take off", meaning:"در آوردن"},  
+{word:"Stand", meaning:"ایستادن"},  
+{word:"Try", meaning:"سعی کردن"},  
+{word:"Insurance", meaning:"بیمه"},  
+{word:"Document", meaning:"مدرک"},  
+{word:"All", meaning:"همه ،تمام"},  
+{word:"Early", meaning:"زود"},  
+{word:"Mother", meaning:"مادر"},  
+{word:"Word", meaning:"لغت"},  
+{word:"Project", meaning:"پروژه"},  
+{word:"Week", meaning:"هفته"},  
+{word:"Weekdays", meaning:"ایام هفته"},  
+{word:"Weekend", meaning:"آخر هفته"},  
+{word:"Saturday", meaning:"شنبه"},  
+{word:"Sunday", meaning:"یکشنبه"},  
+{word:"Friday", meaning:"جمعه"},  
+{word:"Paint", meaning:"رنگ کردن، نقاشی کردن"},  
+{word:"Translate", meaning:"ترجمه کردن"},  
+{word:"Finish", meaning:"تمام کردن یا شدن"},  
+{word:"Next", meaning:"بعد ،آینده"},  
+{word:"Wash", meaning:"شستن"},  
+{word:"Cook", meaning:"آشپزی کردن ،پختن"},  
+{word:"Learn", meaning:"یاد گرفتن"},  
+{word:"Walk", meaning:"راه رفتن"},  
+{word:"Offer", meaning:"پیشنهاد دادن"},  
+{word:"Give", meaning:"دادن"},  
+{word:"Favorite", meaning:"مورد علاقه"},  
+{word:"Program", meaning:"برنامه"},  
+{word:"Kind", meaning:"نوع"},  
+{word:"Social", meaning:"اجتماعی"},  
+{word:"Problem", meaning:"مشکل"},  
+{word:"Solution", meaning:"راه حل"},  
+{word:"Example", meaning:"مثال"},  
+{word:"Text", meaning:"متن"},  
+{word:"Homework", meaning:"مشق ،تکلیف"},  
+{word:"Take", meaning:"گرفتن"},  
+{word:"Look for", meaning:"دنبال چیزی گشتن"},  
+{word:"Look at", meaning:"به چیزی نگاه کردن"},  
+{word:"Laugh", meaning:"خندیدن"},  
+{word:"Cry", meaning:"گریه کردن"},  
+{word:"Hear", meaning:"شنیدن"},  
+{word:"Ready", meaning:"آماده ،حاضر"},  
+{word:"Newspaper", meaning:"روزنامه"},  
+{word:"Shower", meaning:"دوش"},  
+{word:"Breakfast", meaning:"صبحانه"},  
+{word:"Ice cream", meaning:"بستنی"},  
+{word:"Factory", meaning:"کارخانه"},  
+{word:"Yesterday", meaning:"دیروز"},  
+{word:"Last", meaning:"گذشته ،آخرین"},  
+{word:"Evening", meaning:"غروب"},  
+{word:"Send", meaning:"فرستادن ،ارسال کردن"},  
+{word:"Put", meaning:"گذاشتن قرار دادن"},  
+{word:"Order", meaning:"سفارش دادن ،دستور دادن"},  
+{word:"Bake", meaning:"پختن ( کیک و شیرینی)"},  
+{word:"Celebrate", meaning:"جشن گرفتن"},  
+{word:"Expensive", meaning:"گران"},  
+{word:"Message", meaning:"پیام"},  
+{word:"Birthday", meaning:"تولد"},  
+{word:"Skirt", meaning:"دامن"},  
+{word:"Blouse", meaning:"بلوز (زنانه)"},  
+{word:"Belt", meaning:"کمربند"},  
+{word:"Gift", meaning:"کادو"},  
+{word:"Flower", meaning:"گل"},  
+{word:"Also", meaning:"همچنین"},  
+{word:"In order", meaning:"به ترتیب"}  
+];  
+  
 ];
 
-// --------------- متغیرها ----------------
+// متغیرها
 let currentIndex = 0;
-let score = 0;
-let timer;
+let userAnswers = [];
 let timeLeft = 10;
+let timerInterval;
 
-// --------------- توابع ----------------
-function shuffle(array) {
-    return array.sort(() => 0.5 - Math.random());
-}
-
-function showQuestion() {
-    if(currentIndex >= words.length){
-        showResult();
-        return;
-    }
-    
-    let qDiv = document.getElementById("quiz");
-    let tDiv = document.getElementById("timer");
-    qDiv.innerHTML = "";
-    
-    let wordObj = words[currentIndex];
-    let reverse = Math.random() < 0.5; // فارسی ↔ انگلیسی
-    let questionText = reverse ? `"${wordObj.meaning}" یعنی چه؟` : `"${wordObj.word}" چیست؟`;
-    let correctAnswer = reverse ? wordObj.word : wordObj.meaning;
-
-    // تولید گزینه‌ها
-    let wrongOptions = shuffle(words.filter(w => (reverse ? w.word : w.meaning) !== correctAnswer))
-        .slice(0,3)
-        .map(w => reverse ? w.word : w.meaning);
-    
-    let options = shuffle([correctAnswer, ...wrongOptions]);
-
-    // نمایش سؤال
-    let qBox = document.createElement("div");
-    qBox.className = "question-box";
-    qBox.innerHTML = `<b>${currentIndex+1}. ${questionText}</b>`;
-    options.forEach((opt, i)=>{
-        qBox.innerHTML += `<div class="option">
-        <input type="radio" name="q" value="${i}"> ${opt}
-        </div>`;
-    });
-    qDiv.appendChild(qBox);
-
-    // تایمر
-    timeLeft = 10;
-    tDiv.innerText = `⏰ زمان باقی‌مانده: ${timeLeft} ثانیه`;
-    clearInterval(timer);
-    timer = setInterval(()=>{
+// شروع تایمر
+function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
         timeLeft--;
-        tDiv.innerText = `⏰ زمان باقی‌مانده: ${timeLeft} ثانیه`;
+        document.getElementById("time").textContent = timeLeft;
         if(timeLeft <= 0){
-            clearInterval(timer);
-            checkAnswer();
+            clearInterval(timerInterval);
+            userAnswers.push({index: currentIndex, answer: null});
+            currentIndex++;
+            showQuestion();
         }
     },1000);
 }
 
-function checkAnswer(){
-    let selected = document.querySelector(`input[name="q"]:checked`);
-    let wordObj = words[currentIndex];
-    let reverse = Math.random() < 0.5;
-    let correctAnswer = reverse ? wordObj.word : wordObj.meaning;
+// نمایش سوال
+function showQuestion(){
+    const quizDiv = document.getElementById("quiz");
+    quizDiv.innerHTML = "";
 
-    if(selected && selected.parentElement.innerText.trim() === correctAnswer){
-        score++;
+    if(currentIndex >= words.length){
+        showResult();
+        return;
     }
 
-    currentIndex++;
-    showQuestion();
+    timeLeft = 10;
+    document.getElementById("time").textContent = timeLeft;
+    startTimer();
+
+    const w = words[currentIndex];
+    const reverse = Math.random() < 0.5;
+
+    let questionText, correctAnswer;
+    if(!reverse){
+        questionText = `معنی "${w.word}" چیست؟`;
+        correctAnswer = w.meaning;
+    } else {
+        questionText = `"${w.meaning}" به انگلیسی چیست؟`;
+        correctAnswer = w.word;
+    }
+
+    // ساخت گزینه‌ها
+    let options = words.filter(x => (reverse ? x.word : x.meaning) !== correctAnswer)
+                       .sort(() => 0.5 - Math.random())
+                       .slice(0,3)
+                       .map(x => reverse ? x.word : x.meaning);
+    options.push(correctAnswer);
+    options.sort(() => 0.5 - Math.random());
+
+    const box = document.createElement("div");
+    box.className = "question-box";
+    box.innerHTML = `<strong>${questionText}</strong>`;
+
+    options.forEach(opt=>{
+        const div = document.createElement("div");
+        div.className = "option";
+        div.textContent = opt;
+        div.onclick = ()=>{
+            clearInterval(timerInterval);
+            userAnswers.push({index: currentIndex, answer: opt});
+            currentIndex++;
+            showQuestion();
+        };
+        box.appendChild(div);
+    });
+
+    quizDiv.appendChild(box);
 }
 
+// نمایش نتیجه
 function showResult(){
-    document.getElementById("quiz").innerHTML = "";
-    document.getElementById("timer").innerHTML = "";
-    document.getElementById("result").innerHTML = `
-    <div class="result-box">
-        ✔️ تعداد درست: ${score} <br>
-        ❌ تعداد غلط: ${words.length - score} <br>
-        🏆 درصد: ${(score/words.length*100).toFixed(1)}%
-    </div>`;
+    const quizDiv = document.getElementById("quiz");
+    quizDiv.innerHTML = "";
+    let wrongAnswers = [];
+
+    userAnswers.forEach(ans=>{
+        const word = words[ans.index];
+        let correctAnswer1 = word.word;
+        let correctAnswer2 = word.meaning;
+        if(ans.answer !== correctAnswer1 && ans.answer !== correctAnswer2){
+            wrongAnswers.push({
+                question: word.word,
+                yourAnswer: ans.answer || "پاسخی داده نشده",
+                correctAnswer: correctAnswer2
+            });
+        }
+    });
+
+    if(wrongAnswers.length === 0){
+        quizDiv.innerHTML = `<div class="result-box">🎉 آزمون به پایان رسید! همه جواب‌ها درست بود، موفق باشید! 🎉</div>`;
+    } else {
+        wrongAnswers.forEach(item=>{
+            const div = document.createElement("div");
+            div.className = "wrong-detail";
+            div.innerHTML = `<strong>سؤال:</strong> ${item.question} <br> <strong>جواب شما:</strong> ${item.yourAnswer} <br> <strong>جواب درست:</strong> ${item.correctAnswer}`;
+            quizDiv.appendChild(div);
+        });
+    }
 }
 
-// --------------- شروع آزمون ----------------
-words.sort(()=>0.5-Math.random());
+// شروع آزمون
 showQuestion();
 </script>
 </body>
